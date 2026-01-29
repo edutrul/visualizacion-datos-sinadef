@@ -1,0 +1,513 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Tablero SINADEF – Fallecimientos registrados</title>
+    <style>
+        :root{
+            /* Paleta (ajústala si tu manual exige valores exactos) */
+            --minsa-navy:#050C3C;
+            --minsa-green:#67885E;
+            --bg:#ffffff;
+            --text:#1A1A1A;
+            --muted:#6b7280;
+            --grid:#e5e7eb;
+            --card:#f9fafb;
+            --border:#e5e7eb;
+        }
+        *{box-sizing:border-box}
+        body{
+            margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+            background:var(--bg); color:var(--text);
+        }
+        .wrap{max-width:1100px; margin:0 auto; padding:20px;}
+        header{
+            display:flex; flex-direction:column; gap:10px; margin-bottom:14px;
+            border-bottom:1px solid var(--border); padding-bottom:14px;
+        }
+        h1{margin:0; font-size:20px; color:var(--minsa-navy);}
+        .subtitle{margin:0; color:var(--muted); font-size:13px; line-height:1.35;}
+        .controls{
+            display:flex; flex-wrap:wrap; gap:12px; align-items:flex-end;
+            background:var(--card); border:1px solid var(--border); border-radius:12px; padding:12px;
+        }
+        .control{
+            display:flex; flex-direction:column; gap:6px;
+            min-width:180px;
+        }
+        label{font-size:12px; color:var(--muted);}
+        select, input[type="range"]{
+            width:100%;
+        }
+        .range-row{
+            display:grid; grid-template-columns: 1fr 1fr; gap:12px; align-items:center;
+            width: 360px;
+        }
+        .pill{
+            display:inline-flex; align-items:center; justify-content:center;
+            padding:6px 10px; border-radius:999px;
+            background:#eef2ff; color:var(--minsa-navy); font-size:12px; font-weight:600;
+            border:1px solid var(--border);
+            white-space:nowrap;
+        }
+
+        .grid{
+            display:grid; gap:12px;
+            grid-template-columns: repeat(12, 1fr);
+            margin-top:12px;
+        }
+        .card{
+            background:var(--card);
+            border:1px solid var(--border);
+            border-radius:14px;
+            padding:14px;
+        }
+        .kpi{grid-column: span 3;}
+        .kpi .k{font-size:12px; color:var(--muted); margin-bottom:6px;}
+        .kpi .v{font-size:22px; font-weight:800; color:var(--minsa-navy);}
+        .kpi .s{font-size:12px; color:var(--muted); margin-top:6px;}
+
+        .chart{grid-column: span 6;}
+        .chart h2{
+            margin:0 0 8px 0; font-size:14px; color:var(--minsa-navy);
+        }
+        .note{
+            margin-top:10px; font-size:11px; color:var(--muted);
+            border-top:1px dashed var(--border); padding-top:10px;
+            display:flex; gap:10px; flex-wrap:wrap; align-items:center;
+        }
+        canvas{width:100%; height:320px; display:block;}
+        .small canvas{height:280px;}
+        .dept canvas{height:340px;}
+
+        .footer{
+            margin-top:14px; font-size:11px; color:var(--muted);
+            padding-top:10px; border-top:1px solid var(--border);
+        }
+
+        @media (max-width: 980px){
+            .kpi{grid-column: span 6;}
+            .chart{grid-column: span 12;}
+            .range-row{width:100%;}
+        }
+    </style>
+</head>
+<body>
+<div class="wrap">
+    <header>
+        <h1>¿Cuándo y dónde se concentraron los fallecimientos registrados en el Perú?</h1>
+        <p class="subtitle">
+            Tablero de control (SINADEF – Datos Abiertos). Visualización para el curso “Visualización y comunicación en Data Science”.
+        </p>
+
+        <div class="controls">
+            <div class="control">
+                <label>Rango de años (afecta todo el tablero)</label>
+                <div class="range-row">
+                    <div>
+                        <span class="pill" id="minYearPill">—</span>
+                        <input id="minYear" type="range" min="2017" max="2026" step="1" />
+                    </div>
+                    <div>
+                        <span class="pill" id="maxYearPill">—</span>
+                        <input id="maxYear" type="range" min="2017" max="2026" step="1" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="control" style="min-width:220px">
+                <label>Vista rápida</label>
+                <select id="preset">
+                    <option value="all">Todo (rango completo)</option>
+                    <option value="covid">COVID (2020–2022)</option>
+                    <option value="recent">Reciente (2023–2026)</option>
+                </select>
+            </div>
+
+            <div class="control" style="min-width:160px">
+                <label>&nbsp;</label>
+                <button id="reset" style="padding:10px 12px;border-radius:10px;border:1px solid var(--border);background:#fff;cursor:pointer;">
+                    Reiniciar filtro
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <section class="grid">
+        <!-- KPIs -->
+        <div class="card kpi">
+            <div class="k">Total de registros (filtrado)</div>
+            <div class="v" id="kpiTotal">—</div>
+            <div class="s">Suma de registros por año en el rango</div>
+        </div>
+
+        <div class="card kpi">
+            <div class="k">Rango temporal (filtrado)</div>
+            <div class="v" id="kpiRange">—</div>
+            <div class="s">Años seleccionados</div>
+        </div>
+
+        <div class="card kpi">
+            <div class="k">Año pico (filtrado)</div>
+            <div class="v" id="kpiPeakYear">—</div>
+            <div class="s" id="kpiPeakYearSub">—</div>
+        </div>
+
+        <div class="card kpi">
+            <div class="k">Departamento líder (filtrado)</div>
+            <div class="v" id="kpiTopDept">—</div>
+            <div class="s" id="kpiTopDeptSub">—</div>
+        </div>
+
+        <!-- Charts -->
+        <div class="card chart">
+            <h2>Distribución temporal: fallecimientos registrados por año</h2>
+            <canvas id="chartYear"></canvas>
+            <div class="note" id="noteYear"></div>
+        </div>
+
+        <div class="card chart small">
+            <h2>Estacionalidad: registros por mes (agregado)</h2>
+            <canvas id="chartMonth"></canvas>
+            <div class="note" id="noteMonth"></div>
+        </div>
+
+        <div class="card chart dept" style="grid-column: span 12;">
+            <h2>Concentración geográfica: Top 10 departamentos con más registros</h2>
+            <canvas id="chartDept"></canvas>
+            <div class="note" id="noteDept"></div>
+        </div>
+    </section>
+
+    <div class="footer" id="footerSource">—</div>
+</div>
+
+<script>
+    // ============
+    // Config / util
+    // ============
+    const COLORS = {
+        navy: getComputedStyle(document.documentElement).getPropertyValue('--minsa-navy').trim(),
+        green: getComputedStyle(document.documentElement).getPropertyValue('--minsa-green').trim(),
+        grid: getComputedStyle(document.documentElement).getPropertyValue('--grid').trim(),
+        text: getComputedStyle(document.documentElement).getPropertyValue('--text').trim(),
+        muted: getComputedStyle(document.documentElement).getPropertyValue('--muted').trim(),
+        bg: getComputedStyle(document.documentElement).getPropertyValue('--bg').trim()
+    };
+
+    const fmt = new Intl.NumberFormat("es-PE");
+    const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+
+    function hexToRgb(hex){
+        const s = hex.replace('#','').trim();
+        const n = parseInt(s, 16);
+        return { r:(n>>16)&255, g:(n>>8)&255, b:n&255 };
+    }
+    function rgba(hex, alpha){
+        const {r,g,b} = hexToRgb(hex);
+        return `rgba(${r},${g},${b},${alpha})`;
+    }
+
+    // ============
+    // Data loading
+    // ============
+    let KPI = null;
+    let YEAR = null;
+    let MONTH = null;
+    let DEPT = null;
+
+    async function loadAll(){
+        // Archivos locales (ponlos en la misma carpeta que este HTML)
+        KPI   = await fetch("./kpi.json").then(r=>r.json());
+        YEAR  = await fetch("./data_year.json").then(r=>r.json());
+        MONTH = await fetch("./data_month.json").then(r=>r.json());
+        DEPT  = await fetch("./data_dept.json").then(r=>r.json());
+
+        initControls();
+        renderAll();
+        renderSourceFooter();
+    }
+
+    // ============
+    // Controls
+    // ============
+    const minYearEl = document.getElementById("minYear");
+    const maxYearEl = document.getElementById("maxYear");
+    const minPill = document.getElementById("minYearPill");
+    const maxPill = document.getElementById("maxYearPill");
+    const presetEl = document.getElementById("preset");
+    const resetEl = document.getElementById("reset");
+
+    function initControls(){
+        const years = Object.keys(YEAR).map(Number).sort((a,b)=>a-b);
+        const minY = years[0], maxY = years[years.length-1];
+
+        minYearEl.min = minY; minYearEl.max = maxY; minYearEl.value = minY;
+        maxYearEl.min = minY; maxYearEl.max = maxY; maxYearEl.value = maxY;
+
+        minPill.textContent = `Desde: ${minY}`;
+        maxPill.textContent = `Hasta: ${maxY}`;
+
+        function sync(){
+            let a = Number(minYearEl.value);
+            let b = Number(maxYearEl.value);
+            if (a > b) [a,b] = [b,a];
+            minYearEl.value = a;
+            maxYearEl.value = b;
+            minPill.textContent = `Desde: ${a}`;
+            maxPill.textContent = `Hasta: ${b}`;
+            renderAll();
+        }
+
+        minYearEl.addEventListener("input", sync);
+        maxYearEl.addEventListener("input", sync);
+
+        presetEl.addEventListener("change", () => {
+            const v = presetEl.value;
+            const years = Object.keys(YEAR).map(Number).sort((a,b)=>a-b);
+            const minY = years[0], maxY = years[years.length-1];
+
+            if (v === "all"){ minYearEl.value=minY; maxYearEl.value=maxY; }
+            if (v === "covid"){ minYearEl.value=2020; maxYearEl.value=2022; }
+            if (v === "recent"){ minYearEl.value=2023; maxYearEl.value=maxY; }
+            // fuerza texto
+            minPill.textContent = `Desde: ${minYearEl.value}`;
+            maxPill.textContent = `Hasta: ${maxYearEl.value}`;
+            renderAll();
+        });
+
+        resetEl.addEventListener("click", () => {
+            presetEl.value = "all";
+            const years = Object.keys(YEAR).map(Number).sort((a,b)=>a-b);
+            minYearEl.value = years[0];
+            maxYearEl.value = years[years.length-1];
+            minPill.textContent = `Desde: ${minYearEl.value}`;
+            maxPill.textContent = `Hasta: ${maxYearEl.value}`;
+            renderAll();
+        });
+    }
+
+    function getFilterRange(){
+        let a = Number(minYearEl.value);
+        let b = Number(maxYearEl.value);
+        if (a > b) [a,b] = [b,a];
+        return {min:a, max:b};
+    }
+
+    // ============
+    // KPI + notes
+    // ============
+    function computeFilteredYearSeries(){
+        const {min, max} = getFilterRange();
+        const years = Object.keys(YEAR).map(Number).sort((a,b)=>a-b);
+        const xs = [], ys = [];
+        for (const y of years){
+            if (y >= min && y <= max){
+                xs.push(y);
+                ys.push(Number(YEAR[y] ?? 0));
+            }
+        }
+        return {xs, ys};
+    }
+
+    function computePeak(xs, ys){
+        let bestIdx = 0;
+        for (let i=1;i<ys.length;i++){
+            if (ys[i] > ys[bestIdx]) bestIdx = i;
+        }
+        return {year: xs[bestIdx], value: ys[bestIdx]};
+    }
+
+    function renderKPIs(){
+        const {min, max} = getFilterRange();
+        const {xs, ys} = computeFilteredYearSeries();
+        const total = ys.reduce((a,b)=>a+b,0);
+        const peak = computePeak(xs, ys);
+
+        // Dept: el JSON de dept es global (no por año). Para mantener "sin inventar data",
+        // lo mostramos como "global" y lo indicamos. Si luego generas dept por año, lo filtramos real.
+        const topDept = (Array.isArray(DEPT) ? DEPT[0] : null);
+
+        document.getElementById("kpiTotal").textContent = fmt.format(total);
+        document.getElementById("kpiRange").textContent = `${min}–${max}`;
+        document.getElementById("kpiPeakYear").textContent = `${peak.year}`;
+        document.getElementById("kpiPeakYearSub").textContent = `${fmt.format(peak.value)} registros`;
+
+        if (topDept){
+            document.getElementById("kpiTopDept").textContent = topDept.name ?? "—";
+            document.getElementById("kpiTopDeptSub").textContent = `${fmt.format(topDept.value ?? 0)} registros (global)`;
+        } else {
+            document.getElementById("kpiTopDept").textContent = "—";
+            document.getElementById("kpiTopDeptSub").textContent = "—";
+        }
+
+        // Notes
+        const noteYear = document.getElementById("noteYear");
+        noteYear.innerHTML = `
+        <span class="pill">Insight</span>
+        <span>El pico se observa en <b>${peak.year}</b> con <b>${fmt.format(peak.value)}</b> registros dentro del rango filtrado.</span>
+      `;
+
+        const noteMonth = document.getElementById("noteMonth");
+        noteMonth.innerHTML = `
+        <span class="pill">Nota</span>
+        <span>Serie mensual agregada (sin filtro anual por falta de desglose mes-año en el JSON actual).</span>
+      `;
+
+        const noteDept = document.getElementById("noteDept");
+        noteDept.innerHTML = `
+        <span class="pill">Hallazgo</span>
+        <span>La mayor concentración se observa en <b>${topDept?.name ?? "—"}</b> (Top 1 global).</span>
+      `;
+    }
+
+    function renderSourceFooter(){
+        // KPI suele traer metadatos; si no, lo dejamos fijo.
+        const updated = KPI?.updated_at || "2026-01-28";
+        document.getElementById("footerSource").textContent =
+            `Fuente: SINADEF – Datos Abiertos (MINSA). Fecha de actualización del tablero: ${updated}. Elaboración propia.`;
+    }
+
+    // ============
+    // Minimal charts (Canvas, sin librerías)
+    // ============
+    function clearCanvas(ctx, w, h){
+        ctx.clearRect(0,0,w,h);
+        ctx.fillStyle = COLORS.bg;
+        ctx.fillRect(0,0,w,h);
+    }
+
+    function drawGridY(ctx, w, h, steps=4){
+        ctx.strokeStyle = COLORS.grid;
+        ctx.lineWidth = 1;
+        for (let i=0;i<=steps;i++){
+            const y = 10 + (h-40) * (i/steps);
+            ctx.beginPath();
+            ctx.moveTo(40, y);
+            ctx.lineTo(w-10, y);
+            ctx.stroke();
+        }
+    }
+
+    function barChart(ctx, labels, values, highlightIndex=null, color=COLORS.navy){
+        const w = ctx.canvas.width, h = ctx.canvas.height;
+        clearCanvas(ctx,w,h);
+        drawGridY(ctx,w,h,4);
+
+        const max = Math.max(...values, 1);
+        const plotW = (w - 60);
+        const plotH = (h - 50);
+        const barW = plotW / values.length;
+
+        // axes
+        ctx.strokeStyle = COLORS.text;
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(40, 10);
+        ctx.lineTo(40, h-30);
+        ctx.lineTo(w-10, h-30);
+        ctx.stroke();
+
+        // bars + x labels
+        for (let i=0;i<values.length;i++){
+            const v = values[i];
+            const x = 40 + i*barW + 6;
+            const bh = (v/max) * (plotH-10);
+            const y = (h-30) - bh;
+
+            ctx.fillStyle = (i===highlightIndex) ? color : rgba(color, 0.35);
+            ctx.fillRect(x, y, Math.max(6, barW-12), bh);
+
+            // x label (cada 2 para que no se amontone)
+            if (values.length <= 12 || i % 2 === 0){
+                ctx.fillStyle = COLORS.muted;
+                ctx.font = "11px system-ui";
+                ctx.textAlign = "center";
+                ctx.fillText(String(labels[i]), x + (barW-12)/2, h-12);
+            }
+        }
+    }
+
+    function barhChart(ctx, labels, values, highlightIndex=0, color=COLORS.green){
+        const w = ctx.canvas.width, h = ctx.canvas.height;
+        clearCanvas(ctx,w,h);
+
+        const max = Math.max(...values, 1);
+        const plotW = (w - 120);
+        const plotH = (h - 30);
+        const rowH = plotH / labels.length;
+
+        // axes baseline
+        ctx.strokeStyle = COLORS.text;
+        ctx.beginPath();
+        ctx.moveTo(110, 10);
+        ctx.lineTo(110, h-20);
+        ctx.lineTo(w-10, h-20);
+        ctx.stroke();
+
+        // bars
+        for (let i=0;i<labels.length;i++){
+            const v = values[i];
+            const y = 12 + i*rowH;
+            const bw = (v/max) * (plotW-10);
+
+            ctx.fillStyle = (i===highlightIndex) ? color : rgba(color, 0.25);
+            ctx.fillRect(110, y, bw, Math.max(10, rowH-8));
+
+            // label
+            ctx.fillStyle = COLORS.text;
+            ctx.font = "12px system-ui";
+            ctx.textAlign = "right";
+            ctx.fillText(labels[i], 102, y + (rowH/2) + 4);
+        }
+    }
+
+    function renderCharts(){
+        // YEAR
+        const {xs, ys} = computeFilteredYearSeries();
+        const peak = computePeak(xs, ys);
+        const peakIdx = xs.indexOf(peak.year);
+
+        const cy = document.getElementById("chartYear");
+        cy.width = 1000; cy.height = 420;
+        barChart(cy.getContext("2d"), xs, ys, peakIdx, COLORS.navy);
+
+        // MONTH (agregado tal cual viene)
+        const cm = document.getElementById("chartMonth");
+        cm.width = 1000; cm.height = 380;
+
+        // Esperamos estructura tipo: [{"month":"01","value":...}] o {"01":...}
+        let mLabels=[], mValues=[];
+        if (Array.isArray(MONTH)){
+            mLabels = MONTH.map(d => d.month ?? d.label ?? d.x);
+            mValues = MONTH.map(d => Number(d.value ?? d.y ?? 0));
+        } else {
+            const keys = Object.keys(MONTH).sort();
+            mLabels = keys;
+            mValues = keys.map(k => Number(MONTH[k] ?? 0));
+        }
+        barChart(cm.getContext("2d"), mLabels, mValues, null, COLORS.green);
+
+        // DEPT top 10
+        const cd = document.getElementById("chartDept");
+        cd.width = 1000; cd.height = 460;
+
+        const top10 = Array.isArray(DEPT) ? DEPT.slice(0,10) : [];
+        const dLabels = top10.map(d => d.name ?? d.dept ?? d.label ?? "");
+        const dValues = top10.map(d => Number(d.value ?? d.count ?? 0));
+        barhChart(cd.getContext("2d"), dLabels, dValues, 0, COLORS.green);
+    }
+
+    function renderAll(){
+        renderKPIs();
+        renderCharts();
+    }
+
+    loadAll().catch(err => {
+        console.error(err);
+        alert("Error cargando JSON. Verifica que index.html y los .json estén en la misma carpeta.");
+    });
+</script>
+</body>
+</html>

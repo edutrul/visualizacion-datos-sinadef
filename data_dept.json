@@ -1,0 +1,106 @@
+[
+  {
+    "department": "LIMA",
+    "value": 506210
+  },
+  {
+    "department": "LA LIBERTAD",
+    "value": 88083
+  },
+  {
+    "department": "PIURA",
+    "value": 81901
+  },
+  {
+    "department": "CALLAO",
+    "value": 74510
+  },
+  {
+    "department": "AREQUIPA",
+    "value": 73789
+  },
+  {
+    "department": "JUNIN",
+    "value": 61911
+  },
+  {
+    "department": "PUNO",
+    "value": 60027
+  },
+  {
+    "department": "CUSCO",
+    "value": 59585
+  },
+  {
+    "department": "LAMBAYEQUE",
+    "value": 56275
+  },
+  {
+    "department": "ANCASH",
+    "value": 56130
+  },
+  {
+    "department": "ICA",
+    "value": 48133
+  },
+  {
+    "department": "CAJAMARCA",
+    "value": 40401
+  },
+  {
+    "department": "HUANUCO",
+    "value": 31435
+  },
+  {
+    "department": "SAN MARTIN",
+    "value": 30678
+  },
+  {
+    "department": "LORETO",
+    "value": 28394
+  },
+  {
+    "department": "UCAYALI",
+    "value": 21976
+  },
+  {
+    "department": "AYACUCHO",
+    "value": 20119
+  },
+  {
+    "department": "APURIMAC",
+    "value": 16280
+  },
+  {
+    "department": "TACNA",
+    "value": 16184
+  },
+  {
+    "department": "HUANCAVELICA",
+    "value": 15584
+  },
+  {
+    "department": "TUMBES",
+    "value": 10530
+  },
+  {
+    "department": "AMAZONAS",
+    "value": 9657
+  },
+  {
+    "department": "MOQUEGUA",
+    "value": 7275
+  },
+  {
+    "department": "PASCO",
+    "value": 6943
+  },
+  {
+    "department": "MADRE DE DIOS",
+    "value": 6734
+  },
+  {
+    "department": "EXTRANJERO",
+    "value": 9
+  }
+]

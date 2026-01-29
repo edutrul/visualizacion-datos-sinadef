@@ -1,0 +1,7 @@
+REPORTE BREVE – SINADEF (Datos Abiertos)
+Fuente: SINADEF - Datos Abiertos (MINSA)
+Fecha de actualización del tablero: 2026-01-28
+Registros totales analizados: 1,463,068
+Rango temporal: 2017 – 2026
+Año con mayor número de registros: 2021 (260,671)
+Departamento con mayor número de registros: LIMA (506,210)

@@ -1,0 +1,11 @@
+{
+  "total_registros": 1463068,
+  "anio_min": 2017,
+  "anio_max": 2026,
+  "anio_pico": 2021,
+  "anio_pico_registros": 260671,
+  "top_departamento": "LIMA",
+  "top_departamento_registros": 506210,
+  "fuente": "SINADEF - Datos Abiertos (MINSA)",
+  "fecha_actualizacion_dashboard": "2026-01-28"
+}

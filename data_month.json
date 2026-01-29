@@ -1,0 +1,656 @@
+[
+  {
+    "year": 2017,
+    "month": 1,
+    "year_month": "2017-01",
+    "value": 7585
+  },
+  {
+    "year": 2017,
+    "month": 2,
+    "year_month": "2017-02",
+    "value": 7332
+  },
+  {
+    "year": 2017,
+    "month": 3,
+    "year_month": "2017-03",
+    "value": 8562
+  },
+  {
+    "year": 2017,
+    "month": 4,
+    "year_month": "2017-04",
+    "value": 7559
+  },
+  {
+    "year": 2017,
+    "month": 5,
+    "year_month": "2017-05",
+    "value": 7954
+  },
+  {
+    "year": 2017,
+    "month": 6,
+    "year_month": "2017-06",
+    "value": 8218
+  },
+  {
+    "year": 2017,
+    "month": 7,
+    "year_month": "2017-07",
+    "value": 8796
+  },
+  {
+    "year": 2017,
+    "month": 8,
+    "year_month": "2017-08",
+    "value": 8714
+  },
+  {
+    "year": 2017,
+    "month": 9,
+    "year_month": "2017-09",
+    "value": 8821
+  },
+  {
+    "year": 2017,
+    "month": 10,
+    "year_month": "2017-10",
+    "value": 9147
+  },
+  {
+    "year": 2017,
+    "month": 11,
+    "year_month": "2017-11",
+    "value": 8598
+  },
+  {
+    "year": 2017,
+    "month": 12,
+    "year_month": "2017-12",
+    "value": 8619
+  },
+  {
+    "year": 2018,
+    "month": 1,
+    "year_month": "2018-01",
+    "value": 9008
+  },
+  {
+    "year": 2018,
+    "month": 2,
+    "year_month": "2018-02",
+    "value": 8271
+  },
+  {
+    "year": 2018,
+    "month": 3,
+    "year_month": "2018-03",
+    "value": 8957
+  },
+  {
+    "year": 2018,
+    "month": 4,
+    "year_month": "2018-04",
+    "value": 8817
+  },
+  {
+    "year": 2018,
+    "month": 5,
+    "year_month": "2018-05",
+    "value": 9867
+  },
+  {
+    "year": 2018,
+    "month": 6,
+    "year_month": "2018-06",
+    "value": 10507
+  },
+  {
+    "year": 2018,
+    "month": 7,
+    "year_month": "2018-07",
+    "value": 10772
+  },
+  {
+    "year": 2018,
+    "month": 8,
+    "year_month": "2018-08",
+    "value": 10430
+  },
+  {
+    "year": 2018,
+    "month": 9,
+    "year_month": "2018-09",
+    "value": 9994
+  },
+  {
+    "year": 2018,
+    "month": 10,
+    "year_month": "2018-10",
+    "value": 10332
+  },
+  {
+    "year": 2018,
+    "month": 11,
+    "year_month": "2018-11",
+    "value": 9391
+  },
+  {
+    "year": 2018,
+    "month": 12,
+    "year_month": "2018-12",
+    "value": 10082
+  },
+  {
+    "year": 2019,
+    "month": 1,
+    "year_month": "2019-01",
+    "value": 10363
+  },
+  {
+    "year": 2019,
+    "month": 2,
+    "year_month": "2019-02",
+    "value": 10307
+  },
+  {
+    "year": 2019,
+    "month": 3,
+    "year_month": "2019-03",
+    "value": 10706
+  },
+  {
+    "year": 2019,
+    "month": 4,
+    "year_month": "2019-04",
+    "value": 10038
+  },
+  {
+    "year": 2019,
+    "month": 5,
+    "year_month": "2019-05",
+    "value": 10059
+  },
+  {
+    "year": 2019,
+    "month": 6,
+    "year_month": "2019-06",
+    "value": 10517
+  },
+  {
+    "year": 2019,
+    "month": 7,
+    "year_month": "2019-07",
+    "value": 11287
+  },
+  {
+    "year": 2019,
+    "month": 8,
+    "year_month": "2019-08",
+    "value": 11451
+  },
+  {
+    "year": 2019,
+    "month": 9,
+    "year_month": "2019-09",
+    "value": 11227
+  },
+  {
+    "year": 2019,
+    "month": 10,
+    "year_month": "2019-10",
+    "value": 11501
+  },
+  {
+    "year": 2019,
+    "month": 11,
+    "year_month": "2019-11",
+    "value": 10992
+  },
+  {
+    "year": 2019,
+    "month": 12,
+    "year_month": "2019-12",
+    "value": 11464
+  },
+  {
+    "year": 2020,
+    "month": 1,
+    "year_month": "2020-01",
+    "value": 11427
+  },
+  {
+    "year": 2020,
+    "month": 2,
+    "year_month": "2020-02",
+    "value": 10932
+  },
+  {
+    "year": 2020,
+    "month": 3,
+    "year_month": "2020-03",
+    "value": 11593
+  },
+  {
+    "year": 2020,
+    "month": 4,
+    "year_month": "2020-04",
+    "value": 15235
+  },
+  {
+    "year": 2020,
+    "month": 5,
+    "year_month": "2020-05",
+    "value": 29224
+  },
+  {
+    "year": 2020,
+    "month": 6,
+    "year_month": "2020-06",
+    "value": 30044
+  },
+  {
+    "year": 2020,
+    "month": 7,
+    "year_month": "2020-07",
+    "value": 31313
+  },
+  {
+    "year": 2020,
+    "month": 8,
+    "year_month": "2020-08",
+    "value": 29791
+  },
+  {
+    "year": 2020,
+    "month": 9,
+    "year_month": "2020-09",
+    "value": 18384
+  },
+  {
+    "year": 2020,
+    "month": 10,
+    "year_month": "2020-10",
+    "value": 14606
+  },
+  {
+    "year": 2020,
+    "month": 11,
+    "year_month": "2020-11",
+    "value": 13326
+  },
+  {
+    "year": 2020,
+    "month": 12,
+    "year_month": "2020-12",
+    "value": 14605
+  },
+  {
+    "year": 2021,
+    "month": 1,
+    "year_month": "2021-01",
+    "value": 23746
+  },
+  {
+    "year": 2021,
+    "month": 2,
+    "year_month": "2021-02",
+    "value": 31234
+  },
+  {
+    "year": 2021,
+    "month": 3,
+    "year_month": "2021-03",
+    "value": 34797
+  },
+  {
+    "year": 2021,
+    "month": 4,
+    "year_month": "2021-04",
+    "value": 36751
+  },
+  {
+    "year": 2021,
+    "month": 5,
+    "year_month": "2021-05",
+    "value": 29914
+  },
+  {
+    "year": 2021,
+    "month": 6,
+    "year_month": "2021-06",
+    "value": 20094
+  },
+  {
+    "year": 2021,
+    "month": 7,
+    "year_month": "2021-07",
+    "value": 15934
+  },
+  {
+    "year": 2021,
+    "month": 8,
+    "year_month": "2021-08",
+    "value": 14178
+  },
+  {
+    "year": 2021,
+    "month": 9,
+    "year_month": "2021-09",
+    "value": 13132
+  },
+  {
+    "year": 2021,
+    "month": 10,
+    "year_month": "2021-10",
+    "value": 13470
+  },
+  {
+    "year": 2021,
+    "month": 11,
+    "year_month": "2021-11",
+    "value": 13041
+  },
+  {
+    "year": 2021,
+    "month": 12,
+    "year_month": "2021-12",
+    "value": 14380
+  },
+  {
+    "year": 2022,
+    "month": 1,
+    "year_month": "2022-01",
+    "value": 18328
+  },
+  {
+    "year": 2022,
+    "month": 2,
+    "year_month": "2022-02",
+    "value": 15883
+  },
+  {
+    "year": 2022,
+    "month": 3,
+    "year_month": "2022-03",
+    "value": 13929
+  },
+  {
+    "year": 2022,
+    "month": 4,
+    "year_month": "2022-04",
+    "value": 12576
+  },
+  {
+    "year": 2022,
+    "month": 5,
+    "year_month": "2022-05",
+    "value": 13223
+  },
+  {
+    "year": 2022,
+    "month": 6,
+    "year_month": "2022-06",
+    "value": 13379
+  },
+  {
+    "year": 2022,
+    "month": 7,
+    "year_month": "2022-07",
+    "value": 14695
+  },
+  {
+    "year": 2022,
+    "month": 8,
+    "year_month": "2022-08",
+    "value": 15273
+  },
+  {
+    "year": 2022,
+    "month": 9,
+    "year_month": "2022-09",
+    "value": 13528
+  },
+  {
+    "year": 2022,
+    "month": 10,
+    "year_month": "2022-10",
+    "value": 10226
+  },
+  {
+    "year": 2022,
+    "month": 11,
+    "year_month": "2022-11",
+    "value": 9303
+  },
+  {
+    "year": 2022,
+    "month": 12,
+    "year_month": "2022-12",
+    "value": 10554
+  },
+  {
+    "year": 2023,
+    "month": 1,
+    "year_month": "2023-01",
+    "value": 9993
+  },
+  {
+    "year": 2023,
+    "month": 2,
+    "year_month": "2023-02",
+    "value": 9120
+  },
+  {
+    "year": 2023,
+    "month": 3,
+    "year_month": "2023-03",
+    "value": 10957
+  },
+  {
+    "year": 2023,
+    "month": 4,
+    "year_month": "2023-04",
+    "value": 11396
+  },
+  {
+    "year": 2023,
+    "month": 5,
+    "year_month": "2023-05",
+    "value": 11204
+  },
+  {
+    "year": 2023,
+    "month": 6,
+    "year_month": "2023-06",
+    "value": 10602
+  },
+  {
+    "year": 2023,
+    "month": 7,
+    "year_month": "2023-07",
+    "value": 10488
+  },
+  {
+    "year": 2023,
+    "month": 8,
+    "year_month": "2023-08",
+    "value": 10723
+  },
+  {
+    "year": 2023,
+    "month": 9,
+    "year_month": "2023-09",
+    "value": 10446
+  },
+  {
+    "year": 2023,
+    "month": 10,
+    "year_month": "2023-10",
+    "value": 10915
+  },
+  {
+    "year": 2023,
+    "month": 11,
+    "year_month": "2023-11",
+    "value": 10551
+  },
+  {
+    "year": 2023,
+    "month": 12,
+    "year_month": "2023-12",
+    "value": 11456
+  },
+  {
+    "year": 2024,
+    "month": 1,
+    "year_month": "2024-01",
+    "value": 12281
+  },
+  {
+    "year": 2024,
+    "month": 2,
+    "year_month": "2024-02",
+    "value": 11455
+  },
+  {
+    "year": 2024,
+    "month": 3,
+    "year_month": "2024-03",
+    "value": 12334
+  },
+  {
+    "year": 2024,
+    "month": 4,
+    "year_month": "2024-04",
+    "value": 11546
+  },
+  {
+    "year": 2024,
+    "month": 5,
+    "year_month": "2024-05",
+    "value": 13096
+  },
+  {
+    "year": 2024,
+    "month": 6,
+    "year_month": "2024-06",
+    "value": 13987
+  },
+  {
+    "year": 2024,
+    "month": 7,
+    "year_month": "2024-07",
+    "value": 14791
+  },
+  {
+    "year": 2024,
+    "month": 8,
+    "year_month": "2024-08",
+    "value": 14494
+  },
+  {
+    "year": 2024,
+    "month": 9,
+    "year_month": "2024-09",
+    "value": 13832
+  },
+  {
+    "year": 2024,
+    "month": 10,
+    "year_month": "2024-10",
+    "value": 13696
+  },
+  {
+    "year": 2024,
+    "month": 11,
+    "year_month": "2024-11",
+    "value": 13047
+  },
+  {
+    "year": 2024,
+    "month": 12,
+    "year_month": "2024-12",
+    "value": 13818
+  },
+  {
+    "year": 2025,
+    "month": 1,
+    "year_month": "2025-01",
+    "value": 14260
+  },
+  {
+    "year": 2025,
+    "month": 2,
+    "year_month": "2025-02",
+    "value": 12619
+  },
+  {
+    "year": 2025,
+    "month": 3,
+    "year_month": "2025-03",
+    "value": 14169
+  },
+  {
+    "year": 2025,
+    "month": 4,
+    "year_month": "2025-04",
+    "value": 13260
+  },
+  {
+    "year": 2025,
+    "month": 5,
+    "year_month": "2025-05",
+    "value": 14210
+  },
+  {
+    "year": 2025,
+    "month": 6,
+    "year_month": "2025-06",
+    "value": 14357
+  },
+  {
+    "year": 2025,
+    "month": 7,
+    "year_month": "2025-07",
+    "value": 15122
+  },
+  {
+    "year": 2025,
+    "month": 8,
+    "year_month": "2025-08",
+    "value": 14486
+  },
+  {
+    "year": 2025,
+    "month": 9,
+    "year_month": "2025-09",
+    "value": 14206
+  },
+  {
+    "year": 2025,
+    "month": 10,
+    "year_month": "2025-10",
+    "value": 14152
+  },
+  {
+    "year": 2025,
+    "month": 11,
+    "year_month": "2025-11",
+    "value": 13348
+  },
+  {
+    "year": 2025,
+    "month": 12,
+    "year_month": "2025-12",
+    "value": 14017
+  },
+  {
+    "year": 2026,
+    "month": 1,
+    "year_month": "2026-01",
+    "value": 10341
+  }
+]
