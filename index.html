@@ -556,7 +556,7 @@
         document.getElementById("noteYears").textContent = `Rango activo: ${range.from}–${range.to}`;
         document.getElementById("insightYear").textContent =
             ySeries.length
-                ? `El mayor valor del rango ocurre en ${peakYear} con ${formatInt(peakVal)} registros.`
+                ? `Dentro del rango seleccionado, el mayor número de registros ocurre en ${peakYear} (${formatInt(peakVal)}).`
                 : `Ajusta el rango para ver el pico anual.`;
 
         // Charts
